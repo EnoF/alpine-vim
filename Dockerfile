@@ -65,6 +65,7 @@ RUN apk --update add \
     git \
     ncurses-terminfo \
     python \
+    the_silver_searcher \
 # YouCompleteMe
     && apk add --virtual build-deps \
     build-base \
@@ -144,6 +145,9 @@ RUN cd $UHOME/bundle/ \
 # Theme
     && git clone --depth 1 \
     https://github.com/altercation/vim-colors-solarized
+
+RUN cd $UHOME/bundle/ \
+    && git clone --depth 1 https://github.com/joshdick/onedark.vim
     
 # Build default .vimrc
 RUN  mv -f $UHOME/.vimrc $UHOME/.vimrc~ \
@@ -160,6 +164,8 @@ RUN  mv -f $UHOME/.vimrc $UHOME/.vimrc~ \
 
 # Pathogen help tags generation
 RUN vim -E -c 'execute pathogen#helptags()' -c q ; return 0
+
+COPY my.vimrc /ext/.vimrc
 
 ENV TERM=xterm-256color
 
