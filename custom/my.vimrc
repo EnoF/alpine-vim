@@ -25,8 +25,10 @@ endif
 set path=.,**
 set wildignorecase
 
-colorscheme lyla
+colorscheme onedark
 hi ExtraWhitespace guibg=NONE      guisp=NONE      gui=NONE        ctermfg=248     ctermbg=NONE    cterm=NONE
 match ExtraWhitespace /^\s\+/
 autocmd BufWinEnter * match ExtraWhitespace /^\s\+/
 
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p

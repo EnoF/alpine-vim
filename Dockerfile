@@ -65,6 +65,7 @@ RUN apk --update add \
     git \
     ncurses-terminfo \
     python \
+    nodejs \
     the_silver_searcher \
 # YouCompleteMe
     && apk add --virtual build-deps \
@@ -78,7 +79,7 @@ RUN apk --update add \
     $UHOME/bundle/YouCompleteMe/ \
     && cd $UHOME/bundle/YouCompleteMe \
     && git submodule update --init --recursive \
-    && $UHOME/bundle/YouCompleteMe/install.py --gocode-completer \
+    && $UHOME/bundle/YouCompleteMe/install.py --gocode-completer --tern-completer \
 # Install and compile procvim.vim                        
     && git clone --depth 1 https://github.com/Shougo/vimproc.vim \
     $UHOME/bundle/vimproc.vim \
@@ -100,11 +101,15 @@ RUN apk --update add \
     /var/tmp/* \
     && mkdir /var/cache/apk
 
+# Typescript
+RUN npm install -g typescript
+
 USER $UNAME
 
 # Plugins
 RUN cd $UHOME/bundle/ \
     && git clone --depth 1 https://github.com/pangloss/vim-javascript \
+    && git clone --depth 1 https://github.com/leafgarland/typescript-vim \
     && git clone --depth 1 https://github.com/scrooloose/nerdcommenter \
     && git clone --depth 1 https://github.com/godlygeek/tabular \
     && git clone --depth 1 https://github.com/Raimondi/delimitMate \
@@ -147,7 +152,8 @@ RUN cd $UHOME/bundle/ \
     https://github.com/altercation/vim-colors-solarized
 
 RUN cd $UHOME/bundle/ \
-    && git clone --depth 1 https://github.com/joshdick/onedark.vim
+    && git clone --depth 1 https://github.com/joshdick/onedark.vim \
+    && git clone --depth 1 https://github.com/editorconfig/editorconfig-vim
     
 # Build default .vimrc
 RUN  mv -f $UHOME/.vimrc $UHOME/.vimrc~ \
