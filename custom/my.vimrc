@@ -32,3 +32,8 @@ autocmd BufWinEnter * match ExtraWhitespace /^\s\+/
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim test
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-x> :!npm run test
